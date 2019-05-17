@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="WebApp_ID" version="2.5">
+    <display-name>permission</display-name>
+    <!--spring监听加载器-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!--加载spring beans 配置文件-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <!--classpath：默认读取resources目录下文件-->
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <!--编码格式-->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!--login filter-->
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>com.yrm.permission.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <!--后台请求-->
+        <url-pattern>/sys/*</url-pattern>
+        <!--admin后台请求-->
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <!--权限控制filter-->
+    <filter>
+        <filter-name>aclControlFilter</filter-name>
+        <filter-class>com.yrm.permission.filter.AclControlFilter</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>exclusionUrls</param-name>
+            <param-value>/sys/user/noAuth.page,/login.page</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>aclControlFilter</filter-name>
+        <url-pattern>/sys/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <!--spring mvc 配置-->
+    <servlet>
+        <servlet-name>permission</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring-servlet.xml</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>permission</servlet-name>
+        <!--/ 与/*的区别  /除了.jsp请求进不来 其他请求都会进来  /*指的是所有请求都会进来-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
+    <!--druid 相关配置-->
+    <servlet>
+        <servlet-name>DruidStatServlet</servlet-name>
+        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+        <!--配置下druid后台登录的用户密码-->
+        <init-param>
+            <param-name>loginUsername</param-name>
+            <param-value>druid</param-value>
+        </init-param>
+        <init-param>
+            <param-name>loginPassword</param-name>
+            <param-value>druid</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DruidStatServlet</servlet-name>
+        <url-pattern>/sys/druid/*</url-pattern>
+    </servlet-mapping>
+    <filter>
+        <filter-name>DruidWebStatFilter</filter-name>
+        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+        <init-param>
+            <param-name>exclusions</param-name>
+            <param-value>*.js,*.css,*.jpg,*.png,*.ico,*.gif,/sys/druid/*</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>DruidWebStatFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
