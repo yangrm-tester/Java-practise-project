@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yrm.so2o.dao.AreaMapper">
+  <resultMap id="BaseResultMap" type="com.yrm.so2o.entity.Area">
+    <id column="area_id" jdbcType="INTEGER" property="areaId" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="area_desc" jdbcType="VARCHAR" property="areaDesc" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    area_id, area_name, area_desc, priority, create_time, last_edit_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_area
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_area
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yrm.so2o.entity.Area">
+    insert into tb_area (area_id, area_name, area_desc, 
+      priority, create_time, last_edit_time
+      )
+    values (#{areaId,jdbcType=INTEGER}, #{areaName,jdbcType=VARCHAR}, #{areaDesc,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yrm.so2o.entity.Area">
+    insert into tb_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="areaName != null">
+        area_name,
+      </if>
+      <if test="areaDesc != null">
+        area_desc,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastEditTime != null">
+        last_edit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="areaId != null">
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaDesc != null">
+        #{areaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null">
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yrm.so2o.entity.Area">
+    update tb_area
+    <set>
+      <if test="areaName != null">
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaDesc != null">
+        area_desc = #{areaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null">
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yrm.so2o.entity.Area">
+    update tb_area
+    set area_name = #{areaName,jdbcType=VARCHAR},
+      area_desc = #{areaDesc,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
+    where area_id = #{areaId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

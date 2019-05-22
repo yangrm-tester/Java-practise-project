@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yrm.so2o.dao.PhoneAuthMapper">
+  <resultMap id="BaseResultMap" type="com.yrm.so2o.entity.PhoneAuth">
+    <id column="phone_auth_id" jdbcType="INTEGER" property="phoneAuthId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="auth_number" jdbcType="VARCHAR" property="authNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    phone_auth_id, user_id, phone, auth_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_phone_auth
+    where phone_auth_id = #{phoneAuthId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_phone_auth
+    where phone_auth_id = #{phoneAuthId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yrm.so2o.entity.PhoneAuth">
+    insert into tb_phone_auth (phone_auth_id, user_id, phone, 
+      auth_number)
+    values (#{phoneAuthId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
+      #{authNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yrm.so2o.entity.PhoneAuth">
+    insert into tb_phone_auth
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phoneAuthId != null">
+        phone_auth_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="authNumber != null">
+        auth_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="phoneAuthId != null">
+        #{phoneAuthId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="authNumber != null">
+        #{authNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yrm.so2o.entity.PhoneAuth">
+    update tb_phone_auth
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="authNumber != null">
+        auth_number = #{authNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where phone_auth_id = #{phoneAuthId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yrm.so2o.entity.PhoneAuth">
+    update tb_phone_auth
+    set user_id = #{userId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      auth_number = #{authNumber,jdbcType=VARCHAR}
+    where phone_auth_id = #{phoneAuthId,jdbcType=INTEGER}
+  </update>
+</mapper>

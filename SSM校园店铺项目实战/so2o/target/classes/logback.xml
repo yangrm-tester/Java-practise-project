@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scan="true" scanPeriod="60 seconds" debug="false"-->
+<configuration > <!--60S自动扫描配置文件改动并加载 debug表示日志框架内部系统日志是否打印-->
+    <!--定义常量property-->
+    <property name="logger.level" value="debug"/><!--默认级别是debug-->
+    <property name="log.maxHistory" value="30"/> <!--设置日志存储最大个数-->
+    <property name="log.filePath" value="${catalina.base}/logs/webapps"/> <!--catalina.base 指的是Tomcat运行的根目录-->
+    <property name="log.pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss:SSS} [%thread] %-5level %logger{50} - %msg%n"/> <!--日志输出格式-->
+
+    <!--这个是控制台设置-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+   <!-- &lt;!&ndash;debug 级别日志&ndash;&gt;
+    <appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender"> &lt;!&ndash;文件滚动输出&ndash;&gt;
+        &lt;!&ndash;文件路径&ndash;&gt;
+        <file>${log.filePath}/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> &lt;!&ndash;日志滚动策略 按照天来滚动&ndash;&gt;
+            &lt;!&ndash;文件名称&ndash;&gt;
+            <fileNamePattern>${log.filePath}/debug/debug.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            &lt;!&ndash;最大历史日期&ndash;&gt;
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMisMatch>DENY</onMisMatch>
+        </filter>
+    </appender>
+    &lt;!&ndash;info 级别日志&ndash;&gt;
+    <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender"> &lt;!&ndash;文件滚动输出&ndash;&gt;
+        &lt;!&ndash;文件路径&ndash;&gt;
+        <file>${log.filePath}/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> &lt;!&ndash;日志滚动策略 按照天来滚动&ndash;&gt;
+            &lt;!&ndash;文件名称&ndash;&gt;
+            <fileNamePattern>${log.filePath}/info/info.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            &lt;!&ndash;最大历史日期&ndash;&gt;
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMisMatch>DENY</onMisMatch>
+        </filter>
+    </appender>
+    &lt;!&ndash;debug 级别日志&ndash;&gt;
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender"> &lt;!&ndash;文件滚动输出&ndash;&gt;
+        &lt;!&ndash;文件路径&ndash;&gt;
+        <file>${log.filePath}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> &lt;!&ndash;日志滚动策略 按照天来滚动&ndash;&gt;
+            &lt;!&ndash;文件名称&ndash;&gt;
+            <fileNamePattern>${log.filePath}/error/error.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            &lt;!&ndash;最大历史日期&ndash;&gt;
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMisMatch>DENY</onMisMatch>
+        </filter>
+    </appender>
+
+    <logger name="com.yrm.so2o" level="${logger.level}" additivity="true">
+        <appender-ref ref="debugAppender"/>
+        <appender-ref ref="infoAppender"/>
+        <appender-ref ref="errorAppender"/>
+    </logger>-->
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

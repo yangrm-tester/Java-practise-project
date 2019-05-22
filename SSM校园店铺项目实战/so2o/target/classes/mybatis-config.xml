@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--sql日志调试-->
+    <!--<settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>-->
+    <settings>
+        <!--允许JDBC自动生成主键。需要驱动程序兼容。如果设置为 true则会强行自动生成主键，然而有些则不会自动生-->
+        <setting name="useGeneratedKeys" value="true"/>
+    </settings>
+
+</configuration>

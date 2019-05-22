@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yrm.so2o.dao.ShopMapper">
+    <resultMap id="BaseResultMap" type="com.yrm.so2o.entity.Shop">
+        <id column="shop_id" jdbcType="INTEGER" property="shopId" />
+        <result column="owner_id" jdbcType="INTEGER" property="ownerId" />
+        <result column="area_id" jdbcType="INTEGER" property="areaId" />
+        <result column="shop_category_id" jdbcType="INTEGER" property="shopCategoryId" />
+        <result column="parent_category_id" jdbcType="INTEGER" property="parentCategoryId" />
+        <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+        <result column="shop_desc" jdbcType="VARCHAR" property="shopDesc" />
+        <result column="shop_addr" jdbcType="VARCHAR" property="shopAddr" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="shop_img" jdbcType="VARCHAR" property="shopImg" />
+        <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+        <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+        <result column="priority" jdbcType="INTEGER" property="priority" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime" />
+        <result column="enable_status" jdbcType="INTEGER" property="enableStatus" />
+        <result column="advice" jdbcType="VARCHAR" property="advice" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        shop_id, owner_id, area_id, shop_category_id, parent_category_id, shop_name, shop_desc,
+        shop_addr, phone, shop_img, longitude, latitude, priority, create_time, last_edit_time,
+        enable_status, advice
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_shop
+        where shop_id = #{shopId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from tb_shop
+        where shop_id = #{shopId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.yrm.so2o.entity.Shop" useGeneratedKeys="true" keyColumn="shop_id" keyProperty="shopId">
+        insert into tb_shop (shop_id, owner_id, area_id,
+        shop_category_id, parent_category_id, shop_name,
+        shop_desc, shop_addr, phone,
+        shop_img, longitude, latitude,
+        priority, create_time, last_edit_time,
+        enable_status, advice)
+        values (#{shopId,jdbcType=INTEGER}, #{ownerId,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER},
+        #{shopCategoryId,jdbcType=INTEGER}, #{parentCategoryId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR},
+        #{shopDesc,jdbcType=VARCHAR}, #{shopAddr,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+        #{shopImg,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE},
+        #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP},
+        #{enableStatus,jdbcType=INTEGER}, #{advice,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.yrm.so2o.entity.Shop">
+        insert into tb_shop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                shop_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="areaId != null">
+                area_id,
+            </if>
+            <if test="shopCategoryId != null">
+                shop_category_id,
+            </if>
+            <if test="parentCategoryId != null">
+                parent_category_id,
+            </if>
+            <if test="shopName != null">
+                shop_name,
+            </if>
+            <if test="shopDesc != null">
+                shop_desc,
+            </if>
+            <if test="shopAddr != null">
+                shop_addr,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="shopImg != null">
+                shop_img,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
+            <if test="priority != null">
+                priority,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastEditTime != null">
+                last_edit_time,
+            </if>
+            <if test="enableStatus != null">
+                enable_status,
+            </if>
+            <if test="advice != null">
+                advice,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                #{shopId,jdbcType=INTEGER},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=INTEGER},
+            </if>
+            <if test="areaId != null">
+                #{areaId,jdbcType=INTEGER},
+            </if>
+            <if test="shopCategoryId != null">
+                #{shopCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="parentCategoryId != null">
+                #{parentCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="shopName != null">
+                #{shopName,jdbcType=VARCHAR},
+            </if>
+            <if test="shopDesc != null">
+                #{shopDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="shopAddr != null">
+                #{shopAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="shopImg != null">
+                #{shopImg,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="priority != null">
+                #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastEditTime != null">
+                #{lastEditTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enableStatus != null">
+                #{enableStatus,jdbcType=INTEGER},
+            </if>
+            <if test="advice != null">
+                #{advice,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yrm.so2o.entity.Shop">
+        update tb_shop
+        <set>
+            <if test="ownerId != null">
+                owner_id = #{ownerId,jdbcType=INTEGER},
+            </if>
+            <if test="areaId != null">
+                area_id = #{areaId,jdbcType=INTEGER},
+            </if>
+            <if test="shopCategoryId != null">
+                shop_category_id = #{shopCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="parentCategoryId != null">
+                parent_category_id = #{parentCategoryId,jdbcType=INTEGER},
+            </if>
+            <if test="shopName != null">
+                shop_name = #{shopName,jdbcType=VARCHAR},
+            </if>
+            <if test="shopDesc != null">
+                shop_desc = #{shopDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="shopAddr != null">
+                shop_addr = #{shopAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="shopImg != null">
+                shop_img = #{shopImg,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="priority != null">
+                priority = #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastEditTime != null">
+                last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enableStatus != null">
+                enable_status = #{enableStatus,jdbcType=INTEGER},
+            </if>
+            <if test="advice != null">
+                advice = #{advice,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where shop_id = #{shopId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yrm.so2o.entity.Shop">
+        update tb_shop
+        set owner_id = #{ownerId,jdbcType=INTEGER},
+        area_id = #{areaId,jdbcType=INTEGER},
+        shop_category_id = #{shopCategoryId,jdbcType=INTEGER},
+        parent_category_id = #{parentCategoryId,jdbcType=INTEGER},
+        shop_name = #{shopName,jdbcType=VARCHAR},
+        shop_desc = #{shopDesc,jdbcType=VARCHAR},
+        shop_addr = #{shopAddr,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=VARCHAR},
+        shop_img = #{shopImg,jdbcType=VARCHAR},
+        longitude = #{longitude,jdbcType=DOUBLE},
+        latitude = #{latitude,jdbcType=DOUBLE},
+        priority = #{priority,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+        enable_status = #{enableStatus,jdbcType=INTEGER},
+        advice = #{advice,jdbcType=VARCHAR}
+        where shop_id = #{shopId,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yrm.so2o.dao.ShopAuthMapMapper">
+  <resultMap id="BaseResultMap" type="com.yrm.so2o.entity.ShopAuthMap">
+    <id column="shop_auth_id" jdbcType="INTEGER" property="shopAuthId" />
+    <result column="employee_id" jdbcType="INTEGER" property="employeeId" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="title_flag" jdbcType="INTEGER" property="titleFlag" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_edit_time" jdbcType="TIMESTAMP" property="lastEditTime" />
+    <result column="enable_status" jdbcType="INTEGER" property="enableStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    shop_auth_id, employee_id, shop_id, name, title, title_flag, create_time, last_edit_time, 
+    enable_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_shop_auth_map
+    where shop_auth_id = #{shopAuthId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_shop_auth_map
+    where shop_auth_id = #{shopAuthId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yrm.so2o.entity.ShopAuthMap">
+    insert into tb_shop_auth_map (shop_auth_id, employee_id, shop_id, 
+      name, title, title_flag, 
+      create_time, last_edit_time, enable_status
+      )
+    values (#{shopAuthId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{titleFlag,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}, #{enableStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yrm.so2o.entity.ShopAuthMap">
+    insert into tb_shop_auth_map
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shopAuthId != null">
+        shop_auth_id,
+      </if>
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="titleFlag != null">
+        title_flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastEditTime != null">
+        last_edit_time,
+      </if>
+      <if test="enableStatus != null">
+        enable_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shopAuthId != null">
+        #{shopAuthId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleFlag != null">
+        #{titleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null">
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enableStatus != null">
+        #{enableStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yrm.so2o.entity.ShopAuthMap">
+    update tb_shop_auth_map
+    <set>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleFlag != null">
+        title_flag = #{titleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null">
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enableStatus != null">
+        enable_status = #{enableStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where shop_auth_id = #{shopAuthId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yrm.so2o.entity.ShopAuthMap">
+    update tb_shop_auth_map
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      title_flag = #{titleFlag,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      enable_status = #{enableStatus,jdbcType=INTEGER}
+    where shop_auth_id = #{shopAuthId,jdbcType=INTEGER}
+  </update>
+</mapper>
