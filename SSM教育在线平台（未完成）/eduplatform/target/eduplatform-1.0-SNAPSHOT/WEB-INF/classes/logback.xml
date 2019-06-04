@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scan="true" scanPeriod="60 seconds" debug="false"-->
+<configuration> <!--60S自动扫描配置文件改动并加载 debug表示日志框架内部系统日志是否打印-->
+    <property name="logger.level" value="debug"/><!--默认级别是debug-->
+    <property name="log.maxHistory" value="30"/> <!--设置日志存储最大个数-->
+    <property name="log.filePath" value="${catalina.base}/logs/webapps"/> <!--catalina.base 指的是Tomcat运行的根目录-->
+    <property name="log.pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss:SSS} [%thread] %-5level %logger{50} - %msg%n"/> <!--日志输出格式-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--输出格式-->
+        <encoder>
+            ${log.pattern}
+        </encoder>
+    </appender>
+
+    <!--写文件的-->
+    　　　
+    <root level="info">　　　　
+        <appender-ref ref="STDOUT"/>　　　
+    </root>
+</configuration>

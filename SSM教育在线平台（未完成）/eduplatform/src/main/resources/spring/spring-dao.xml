@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--加载jdbc配置文件 二者可以选择一个即可-->
+    <!--使用context标签 -->
+    <context:property-placeholder  location="classpath:jdbc.properties"/>
+    <!--使用bean标签
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <array>
+                <value>classpath:jdbc.properties</value>
+            </array>
+        </property>
+    </bean>-->
+    <!--数据源配置 这里使用的c3p0 druid使用大同小异自己可以网上查下-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <!--这里是关于数据库的一些连接的配置 也可以网上查下-->
+        <!--连接池中保留的最小连接数。-->
+        <property name="minPoolSize" value="${jdbc.minPoolSize}"/>
+        <!--连接池中保留的最大连接数。Default: 15 -->
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
+        <!--初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>
+        <!--当连接池用完时客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，如设为0则无限期等待。单位毫秒，默认为0；-->
+        <property name="checkoutTimeout" value="${jdbc.checkoutTimeout}"/>
+        <!--定义在从数据库获取新连接失败后重复尝试获取的次数，默认为30；-->
+        <property name="acquireRetryAttempts" value="${jdbc.acquireRetryAttempts}"/>
+        <!--最大空闲时间，超过空闲时间的连接将被丢弃。为0或负数则永不丢弃。默认为0；-->
+        <property name="maxIdleTime" value="${jdbc.maxIdleTime}"/>
+    </bean>
+
+    <!--配置mybatis-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--扫描mapper文件-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <!--扫描mybatis配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!--扫描dao接口包，动态实现dao接口，注入到spring容器中-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--dao扫描-->
+        <property name="basePackage" value="com.yrm.edu.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+</beans>
